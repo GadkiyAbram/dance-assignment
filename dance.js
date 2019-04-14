@@ -45,6 +45,28 @@ function rightHandDown(elf) {
     });
 }
 
+function bothHandsDown(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftHandDown(elf);
+            rightHandDown(elf);
+            // elf.stance = [0, 0, elf.stance[2], elf.stance[3]];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function bothHandsUp(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftHandUp(elf);
+            rightHandUp(elf);
+            // elf.stance = [1, 1, elf.stance[2], elf.stance[3]];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
 function leftHandUpleftLegIn(elf){
     return new Promise((resolve => {
         setTimeout(() => {
@@ -90,40 +112,32 @@ function rightLegIn(elf){
     }));
 }
 
-function showCitrin(elf, gem) {
-    if (gem == allGems.indexOf("Цитрин")){
-        return new Promise((resolve => {
-            setTimeout(() => {
-                elf.stance = [1, 1, elf.stance[2], elf.stance[3]];
-                resolve(elf);
-            }, elf.danceSpeed);
-        }));
-    }
-}
-
-function bothHandsDown(elf) {
+function showCitrin(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
-            elf.stance = [0, 0, elf.stance[2], elf.stance[3]];
+            // leftHandUp(elf);
+            // rightHandUp(elf).then(bothHandsDown).then(() => {
+            //     leftHandUp(elf);
+            //     rightHandUp(elf).then(bothHandsDown);
+            // });
+            bothHandsUp(elf).then(bothHandsDown).then(() => {
+                bothHandsUp(elf).then(bothHandsDown);
+            })
             resolve(elf);
         }, elf.danceSpeed);
     }));
 }
 
-function showAmetist(elf, gem) {
-    if (gem == allGems.indexOf("Аметист")){
+function showAmetist(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftHandUp(elf).then(rightHandUp).
+            then(leftHandDown).then(rightHandDown).
+            then(rightHandDown());
+            resolve(elf);
+        }, elf.danceSpeed);
 
-        return new Promise((resolve => {
-            setTimeout(() => {
-                leftHandUp(elf);
-                rightHandUp(elf);
-                leftHandDown(elf);
-                rightHandDown(elf);
-                resolve(elf);
-            }, elf.danceSpeed);
-
-        }));
-    }
+    }));
 }
 
 function showQuartz(elf, gem) {
@@ -142,11 +156,10 @@ function showQuartz(elf, gem) {
 }
 
 function showAlmandin(elf, gem) {
-    if (gem == allGems.indexOf("Альмандин")){
+    if (gem == allGems.indexOf("Алмандин")){
         return new Promise((resolve => {
             setTimeout(() => {
-                leftHandUp(elf);
-                leftLegOut(elf);
+                leftHandUp(elf).then(leftLegOut);
                 resolve(elf);
             }, elf.danceSpeed);
         }));
@@ -172,7 +185,24 @@ function showRodolit(elf, gem) {
 // сейчас демонстрируется всем эльфам. Здесь нужно дать команду эльфу выполнить
 // какую-то фигуру или команду и вернуть Promise
 function displayGemToElf(elf, gem) {
-    return leftHandUp(elf).then(leftHandDown);
+    switch (gem) {
+        case "Аметист":
+            return showAmetist(elf);
+            break;
+        case "Цитрин":
+            return showCitrin(elf);
+            break;
+        default:
+            return leftHandUp(elf).then(leftHandDown);
+    }
+    // if (gem == "Аметист"){
+    //     return showAmetist(elf);
+    // }
+    // if (gem == "Цитрин"){
+    //     // return bothHandsUp(elf).then(bothHandsDown).then(bothHandsUp).then(bothHandsDown);
+    //     return showCitrin(elf);
+    // }
+    // return leftHandUp(elf).then(leftHandDown);
 }
 
 
