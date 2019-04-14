@@ -50,7 +50,6 @@ function bothHandsDown(elf) {
         setTimeout(() => {
             leftHandDown(elf);
             rightHandDown(elf);
-            // elf.stance = [0, 0, elf.stance[2], elf.stance[3]];
             resolve(elf);
         }, elf.danceSpeed);
     }));
@@ -61,7 +60,6 @@ function bothHandsUp(elf) {
         setTimeout(() => {
             leftHandUp(elf);
             rightHandUp(elf);
-            // elf.stance = [1, 1, elf.stance[2], elf.stance[3]];
             resolve(elf);
         }, elf.danceSpeed);
     }));
@@ -85,10 +83,19 @@ function leftLegIn(elf){
     }));
 }
 
+function rightLegIn(elf){
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.stance = [elf.stance[0], elf.stance[1], 0, elf.stance[3]];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
 function rightLegOut(elf){
     return new Promise((resolve => {
         setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[2], 1, elf.stance[3]];
+            elf.stance = [elf.stance[0], elf.stance[1], 1, elf.stance[3]];
             resolve(elf);
         }, elf.danceSpeed);
     }));
@@ -103,10 +110,21 @@ function leftLegOut(elf){
     }));
 }
 
-function rightLegIn(elf){
+function bothLegsOut(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[2], 0, elf.stance[3]];
+            leftLegOut(elf);
+            rightLegOut(elf);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function bothLegsIn(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftLegIn(elf);
+            rightLegIn(elf);
             resolve(elf);
         }, elf.danceSpeed);
     }));
@@ -115,14 +133,9 @@ function rightLegIn(elf){
 function showCitrin(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
-            // leftHandUp(elf);
-            // rightHandUp(elf).then(bothHandsDown).then(() => {
-            //     leftHandUp(elf);
-            //     rightHandUp(elf).then(bothHandsDown);
-            // });
             bothHandsUp(elf).then(bothHandsDown).then(() => {
                 bothHandsUp(elf).then(bothHandsDown);
-            })
+            });
             resolve(elf);
         }, elf.danceSpeed);
     }));
@@ -133,37 +146,36 @@ function showAmetist(elf) {
         setTimeout(() => {
             leftHandUp(elf).then(rightHandUp).
             then(leftHandDown).then(rightHandDown).
-            then(rightHandDown());
+            then(rightHandDown);
             resolve(elf);
         }, elf.danceSpeed);
 
     }));
 }
 
-function showQuartz(elf, gem) {
-    if (gem == allGems.indexOf("Кварц")){
-
-        return new Promise((resolve => {
-            setTimeout(() => {
+function showQuartz(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftLegOut(elf);
+            rightLegOut(elf).then(() => {
                 leftLegIn(elf);
                 rightLegIn(elf);
-                leftLegOut(elf);
-                rightLegOut(elf);
-                resolve(elf);
-            }, elf.danceSpeed);
-        }));
-    }
+            });
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
 }
 
-function showAlmandin(elf, gem) {
-    if (gem == allGems.indexOf("Алмандин")){
-        return new Promise((resolve => {
-            setTimeout(() => {
-                leftHandUp(elf).then(leftLegOut);
-                resolve(elf);
-            }, elf.danceSpeed);
-        }));
-    }
+function showAlmandin(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            rightLegOut(elf).then(() => {
+                rightLegIn(elf);
+                leftHandUp(elf);
+            });
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
 }
 
 function showRodolit(elf, gem) {
@@ -192,17 +204,16 @@ function displayGemToElf(elf, gem) {
         case "Цитрин":
             return showCitrin(elf);
             break;
+        case "Кварц":
+            return showQuartz(elf);
+            break;
+        case "Альмандин":
+            return showAlmandin(elf);
+            break;
         default:
             return leftHandUp(elf).then(leftHandDown);
+            break;
     }
-    // if (gem == "Аметист"){
-    //     return showAmetist(elf);
-    // }
-    // if (gem == "Цитрин"){
-    //     // return bothHandsUp(elf).then(bothHandsDown).then(bothHandsUp).then(bothHandsDown);
-    //     return showCitrin(elf);
-    // }
-    // return leftHandUp(elf).then(leftHandDown);
 }
 
 
