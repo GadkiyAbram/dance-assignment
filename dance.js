@@ -65,34 +65,7 @@ function bothHandsUp(elf) {
     }));
 }
 
-function leftHandUpleftLegIn(elf){
-    return new Promise((resolve => {
-        setTimeout(() => {
-            elf.stance = [elf.stance[0], 1, 1, elf.stance[0]];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
 function leftLegIn(elf){
-    return new Promise((resolve => {
-        setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], 0];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
-function rightLegIn(elf){
-    return new Promise((resolve => {
-        setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[1], 0, elf.stance[3]];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
-function rightLegOut(elf){
     return new Promise((resolve => {
         setTimeout(() => {
             elf.stance = [elf.stance[0], elf.stance[1], 1, elf.stance[3]];
@@ -104,7 +77,25 @@ function rightLegOut(elf){
 function leftLegOut(elf){
     return new Promise((resolve => {
         setTimeout(() => {
+            elf.stance = [elf.stance[0], elf.stance[1], 0, elf.stance[3]];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function rightLegIn(elf){
+    return new Promise((resolve => {
+        setTimeout(() => {
             elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], 1];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function rightLegOut(elf){
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], 0];
             resolve(elf);
         }, elf.danceSpeed);
     }));
@@ -156,10 +147,10 @@ function showAmetist(elf) {
 function showQuartz(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
-            leftLegOut(elf);
-            rightLegOut(elf).then(() => {
-                leftLegIn(elf);
-                rightLegIn(elf);
+            leftLegIn(elf);
+            rightLegIn(elf).then(() => {
+                leftLegOut(elf);
+                rightLegOut(elf);
             });
             resolve(elf);
         }, elf.danceSpeed);
@@ -167,27 +158,123 @@ function showQuartz(elf) {
 }
 
 function showAlmandin(elf) {
+    if (elf.stance[2] != 1){
+        elf.stance[2] = 1;
+    }
+    if (elf.stance[0] != 0){
+        elf.stance[0] = 0;
+    }
     return new Promise((resolve => {
         setTimeout(() => {
-            rightLegOut(elf).then(() => {
-                rightLegIn(elf);
-                leftHandUp(elf);
+            leftHandUp(elf);
+            leftLegOut(elf);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function showRodolit(elf) {
+    elf.stance = [0, 0, 0, 1];
+    return new Promise((resolve => {
+        setTimeout(() => {
+            rightHandUp(elf);
+            rightLegOut(elf);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function showPirop(elf) {
+    elf.stance = [0, 0, 0, 0];
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftLegIn(elf);
+            rightLegIn(elf);
+            leftHandUp((elf));
+            rightHandUp(elf).then(() => {
+                leftLegOut(elf);
+                rightLegOut(elf);
+                leftHandDown(elf);
+                rightHandDown(elf);
             });
             resolve(elf);
         }, elf.danceSpeed);
     }));
 }
 
-function showRodolit(elf, gem) {
-    if (gem == allGems.indexOf("Родолит")){
-        return new Promise((resolve => {
-            setTimeout(() => {
-                rightHandUp(elf);
-                rightLegOut(elf);
-                resolve(elf);
-            }, elf.danceSpeed);
-        }));
-    }
+function showSpessartin(elf) {
+    elf.stance = [0, 0, 1, 1];
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftLegOut(elf).then(() => {
+                leftHandUp(elf).then(() => {
+                    rightHandUp(elf).then(() => {
+                        rightLegOut(elf);
+                    });
+                });
+            });
+            resolve(elf);
+        }, elf.danceSpeed);
+    }))
+}
+
+function startPosition(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.stance = [0, 0, 0, 0];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }))
+}
+
+function defaultMoves(elf) {
+    startPosition(elf);
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftHandUp(elf).then(leftHandDown);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function dickDefault(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], elf.stance[3], 0];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function dickRight(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], elf.stance[3], 2];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function dickLeft(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], elf.stance[3], 1];
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function dickMoves(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            dickLeft(elf).then(() => {
+                dickRight(elf).then(() => {
+                    dickDefault(elf);
+                });
+            });
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
 }
 
 
@@ -198,21 +285,36 @@ function showRodolit(elf, gem) {
 // какую-то фигуру или команду и вернуть Promise
 function displayGemToElf(elf, gem) {
     switch (gem) {
+        case elf.favouriteGems[elf.favouriteGems.indexOf(gem)]:
+            return bothHandsUp(elf);
+        case "Андалузит":
+            return startPosition(elf);
+            // break;
         case "Аметист":
             return showAmetist(elf);
-            break;
+            // break;
         case "Цитрин":
             return showCitrin(elf);
-            break;
+            // break;
         case "Кварц":
             return showQuartz(elf);
-            break;
+            // break;
         case "Альмандин":
             return showAlmandin(elf);
-            break;
+            // break;
+        case "Родолит":
+            return showRodolit(elf);
+            // break;
+        case "Пироп":
+            return showPirop(elf);
+            // break;
+        case "Спессартин":
+            return showSpessartin(elf);
+            // break;
         default:
-            return leftHandUp(elf).then(leftHandDown);
-            break;
+            startPosition(elf);
+            return dickMoves(elf);
+            //break;
     }
 }
 

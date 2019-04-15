@@ -6,6 +6,7 @@ function delayFn(ms, fn) {
 
 function drawElf(elf) {
     let lt, lm, lb, rt, rm, rb;
+    let her;
 
     if (elf.stance[0] == 1) {
         rt = '/';
@@ -35,11 +36,26 @@ function drawElf(elf) {
         lb = '/';
     }
 
+    //delete if no use
+    if (elf.stance[4] == 1){
+        her = ' \\ ';
+    }else if (elf.stance[4] == 2){
+        her = ' / ';
+    }else {
+        her = ' | ';
+    }
+
     return {
         head: lt + elf.head + rt,
         torso: lm + '(   )' + rm,
-        legs: ' ' + lb + '   ' + rb + ' '
+        legs: ' ' + lb + her + rb + ' '
     }
+
+    // return {
+    //     head: lt + elf.head + rt,
+    //     torso: lm + '(   )' + rm,
+    //     legs: ' ' + lb + '   ' + rb + ' '
+    // }
 }
 
 function display(text) {
