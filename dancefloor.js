@@ -2,6 +2,7 @@
 let dance = [
     [3000, allGems[24]],
     [3000, allGems[20]],
+    [3000, allGems[39]],
     [3000, allGems[40]],
     [3000, allGems[18]],
     [3000, allGems[19]],
@@ -34,7 +35,7 @@ let elves = [
         name: allElves[1],
         head: '(o_o)',
         danceSpeed: 200,
-        stance: [0, 0, 0, 0, 0],
+        stance: [0, 0, 0, 0],
         favouriteGems: [allGems[1], allGems[2]],
         dislikedGems: [allGems[0]]
     },

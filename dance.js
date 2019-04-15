@@ -158,12 +158,7 @@ function showQuartz(elf) {
 }
 
 function showAlmandin(elf) {
-    if (elf.stance[2] != 1){
-        elf.stance[2] = 1;
-    }
-    if (elf.stance[0] != 0){
-        elf.stance[0] = 0;
-    }
+    elf.stance = [0, 0, 1, elf.stance[3]];
     return new Promise((resolve => {
         setTimeout(() => {
             leftHandUp(elf);
@@ -224,7 +219,18 @@ function startPosition(elf) {
             elf.stance = [0, 0, 0, 0];
             resolve(elf);
         }, elf.danceSpeed);
-    }))
+    }));
+}
+
+function endPosition(elf) {
+    elf.stance = [1, 1, 1, 1];
+    return new Promise((resolve => {
+        setTimeout(() => {
+            bothHandsDown(elf);
+            bothLegsOut(elf);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
 }
 
 function defaultMoves(elf) {
@@ -237,49 +243,6 @@ function defaultMoves(elf) {
     }));
 }
 
-function dickDefault(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], elf.stance[3], 0];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
-function dickRight(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], elf.stance[3], 2];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
-function dickLeft(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            elf.stance = [elf.stance[0], elf.stance[1], elf.stance[2], elf.stance[3], 1];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
-function dickMoves(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            dickLeft(elf).then(() => {
-                dickRight(elf).then(() => {
-                    dickDefault(elf);
-                });
-            });
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
-
-
-
-
 // Эта функция принимает в качестве аргумента эльфа и драгоценность, которая
 // сейчас демонстрируется всем эльфам. Здесь нужно дать команду эльфу выполнить
 // какую-то фигуру или команду и вернуть Promise
@@ -287,34 +250,29 @@ function displayGemToElf(elf, gem) {
     switch (gem) {
         case elf.favouriteGems[elf.favouriteGems.indexOf(gem)]:
             return bothHandsUp(elf);
+        case elf.dislikedGems[elf.dislikedGems.indexOf(gem)]:
+            return bothHandsDown(elf);
         case "Андалузит":
             return startPosition(elf);
-            // break;
         case "Аметист":
             return showAmetist(elf);
-            // break;
         case "Цитрин":
             return showCitrin(elf);
-            // break;
         case "Кварц":
             return showQuartz(elf);
-            // break;
         case "Альмандин":
             return showAlmandin(elf);
-            // break;
         case "Родолит":
             return showRodolit(elf);
-            // break;
         case "Пироп":
             return showPirop(elf);
-            // break;
         case "Спессартин":
             return showSpessartin(elf);
-            // break;
+        case "Гиацинт":
+            return endPosition(elf);
         default:
             startPosition(elf);
-            return dickMoves(elf);
-            //break;
+            return defaultMoves(elf);
     }
 }
 

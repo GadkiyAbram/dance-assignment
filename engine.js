@@ -36,26 +36,11 @@ function drawElf(elf) {
         lb = '/';
     }
 
-    //delete if no use
-    if (elf.stance[4] == 1){
-        her = ' \\ ';
-    }else if (elf.stance[4] == 2){
-        her = ' / ';
-    }else {
-        her = ' | ';
-    }
-
     return {
         head: lt + elf.head + rt,
         torso: lm + '(   )' + rm,
-        legs: ' ' + lb + her + rb + ' '
+        legs: ' ' + lb + '   ' + rb + ' '
     }
-
-    // return {
-    //     head: lt + elf.head + rt,
-    //     torso: lm + '(   )' + rm,
-    //     legs: ' ' + lb + '   ' + rb + ' '
-    // }
 }
 
 function display(text) {
