@@ -9,6 +9,22 @@ let allGems = ['Алмаз', 'Хризолит', 'Эвклаз', 'Корунд',
 // указанное движение. Успешно выполненное движение должно зарезолвится снова
 // в этого же эльфа с обновленной пастурой.
 
+// let movesArray = new Array();
+// movesArray.push(
+//     leftHandUp(),
+//     leftHandDown(),
+//     rightHandUp(),
+//     rightHandDown(),
+//     leftLegIn(),
+//     leftLegOut(),
+//     rightLegIn(),
+//     rightLegOut(),
+//     bothHandsUp(),
+//     bothHandsDown(),
+//     bothLegsIn(),
+//     bothLegsOut()
+// )
+
 function leftHandUp(elf) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -121,7 +137,7 @@ function bothLegsIn(elf) {
     }));
 }
 
-function showCitrin(elf) {
+function citrin(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
             bothHandsUp(elf).then(bothHandsDown).then(() => {
@@ -132,7 +148,7 @@ function showCitrin(elf) {
     }));
 }
 
-function showAmetist(elf) {
+function ametist(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
             leftHandUp(elf).then(rightHandUp).
@@ -144,7 +160,7 @@ function showAmetist(elf) {
     }));
 }
 
-function showQuartz(elf) {
+function quartz(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
             leftLegIn(elf);
@@ -157,7 +173,7 @@ function showQuartz(elf) {
     }));
 }
 
-function showAlmandin(elf) {
+function almandin(elf) {
     elf.stance = [0, 0, 1, elf.stance[3]];
     return new Promise((resolve => {
         setTimeout(() => {
@@ -168,7 +184,7 @@ function showAlmandin(elf) {
     }));
 }
 
-function showRodolit(elf) {
+function rodolit(elf) {
     elf.stance = [0, 0, 0, 1];
     return new Promise((resolve => {
         setTimeout(() => {
@@ -179,7 +195,7 @@ function showRodolit(elf) {
     }));
 }
 
-function showPirop(elf) {
+function pirop(elf) {
     elf.stance = [0, 0, 0, 0];
     return new Promise((resolve => {
         setTimeout(() => {
@@ -197,7 +213,7 @@ function showPirop(elf) {
     }));
 }
 
-function showSpessartin(elf) {
+function spessartin(elf) {
     elf.stance = [0, 0, 1, 1];
     return new Promise((resolve => {
         setTimeout(() => {
@@ -223,7 +239,6 @@ function startPosition(elf) {
 }
 
 function endPosition(elf) {
-    elf.stance = [1, 1, 1, 1];
     return new Promise((resolve => {
         setTimeout(() => {
             bothHandsDown(elf);
@@ -243,6 +258,42 @@ function defaultMoves(elf) {
     }));
 }
 
+function cirkon(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            resolve(elf);
+        }, dance[0]);
+    }));
+}
+
+function tanzanit(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.danceSpeed = elf.danceSpeed / 2;
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function topaz(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            elf.danceSpeed = elf.danceSpeed * 2;
+            resolve(elf);
+        }, elf.danceSpeed);
+    }));
+}
+
+function oneByOneLeftHandUp(elf) {
+    var p = Promise.resolve(elf);
+
+    elves.forEach(e => {
+        p = p.then(() => leftHandUp(e));
+    });
+
+    return p;
+}
+
 // Эта функция принимает в качестве аргумента эльфа и драгоценность, которая
 // сейчас демонстрируется всем эльфам. Здесь нужно дать команду эльфу выполнить
 // какую-то фигуру или команду и вернуть Promise
@@ -252,22 +303,29 @@ function displayGemToElf(elf, gem) {
             return bothHandsUp(elf);
         case elf.dislikedGems[elf.dislikedGems.indexOf(gem)]:
             return bothHandsDown(elf);
+        case "Танзанит":
+            // return tanzanit(elf);
+            return oneByOneLeftHandUp(elf);
+        case "Топаз":
+            return topaz(elf);
+        case "Циркон":
+            return cirkon(elf);
         case "Андалузит":
             return startPosition(elf);
         case "Аметист":
-            return showAmetist(elf);
+            return ametist(elf);
         case "Цитрин":
-            return showCitrin(elf);
+            return citrin(elf);
         case "Кварц":
-            return showQuartz(elf);
+            return quartz(elf);
         case "Альмандин":
-            return showAlmandin(elf);
+            return almandin(elf);
         case "Родолит":
-            return showRodolit(elf);
+            return rodolit(elf);
         case "Пироп":
-            return showPirop(elf);
+            return pirop(elf);
         case "Спессартин":
-            return showSpessartin(elf);
+            return spessartin(elf);
         case "Гиацинт":
             return endPosition(elf);
         default:

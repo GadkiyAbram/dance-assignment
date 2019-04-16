@@ -6,7 +6,7 @@ function delayFn(ms, fn) {
 
 function drawElf(elf) {
     let lt, lm, lb, rt, rm, rb;
-    let her;
+    let sp;
 
     if (elf.stance[0] == 1) {
         rt = '/';
@@ -39,7 +39,9 @@ function drawElf(elf) {
     return {
         head: lt + elf.head + rt,
         torso: lm + '(   )' + rm,
-        legs: ' ' + lb + '   ' + rb + ' '
+        legs: ' ' + lb + '   ' + rb + ' ',
+        //speed
+        speed: '  ' + elf.danceSpeed + '  '
     }
 }
 
@@ -53,20 +55,23 @@ function drawElves(elves) {
     let top = elfPictures.map((elf) => elf.head).join(space);
     let middle = elfPictures.map((elf) => elf.torso).join(space);
     let bottom = elfPictures.map((elf) => elf.legs).join(space);
-    return top + '\n' + middle + '\n' + bottom;
+    //speed
+    let speed = elfPictures.map((elf) => elf.speed).join(space);
+    // return top + '\n' + middle + '\n' + bottom;
+    return speed + '\n' + top + '\n' + middle + '\n' + bottom;
 }
 
 function displayElves(elves) {
     var i, j, chunkSize = 8;
     let text = '';
 
-    // for (i = 0, j = elves.length; i < j; i += chunkSize) {
-    //     text += drawElves(elves.slice(i, i + chunkSize)) + '\n\n';
-    // }
-
-    for (i = 1; i < 2; i++) {
-        text += drawElves(elves.slice(i, 2)) + '\n\n';
+    for (i = 0, j = elves.length; i < j; i += chunkSize) {
+        text += drawElves(elves.slice(i, i + chunkSize)) + '\n\n';
     }
+
+    // for (i = 1; i < 2; i++) {
+    //     text += drawElves(elves.slice(i, 2)) + '\n\n';
+    // }
 
     display(text);
 }
