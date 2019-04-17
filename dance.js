@@ -304,7 +304,9 @@ function displayGemToElf(elf, gem) {
             return bothHandsDown(elf);
         case "Танзанит":
             // return tanzanit(elf);
-            return oneByOneLeftHandUp(elf);
+            return oneByOneLeftHandUp(elf).then(() => {
+                bothHandsDown(elf);
+            }).then(() => defaultMoves(elf));
         case "Топаз":
             return topaz(elf);
         case "Циркон":
