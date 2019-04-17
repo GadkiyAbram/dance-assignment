@@ -239,6 +239,7 @@ function startPosition(elf) {
 }
 
 function endPosition(elf) {
+    elf.stance = [1, 1, elf.stance[2], elf.stance[3]];
     return new Promise((resolve => {
         setTimeout(() => {
             bothHandsDown(elf);
@@ -286,11 +287,9 @@ function topaz(elf) {
 
 function oneByOneLeftHandUp(elf) {
     var p = Promise.resolve(elf);
-
-    elves.forEach(e => {
-        p = p.then(() => leftHandUp(e));
+    elves.forEach(elf => {
+        p = p.then(() => leftHandUp(elf));
     });
-
     return p;
 }
 
