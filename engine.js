@@ -6,7 +6,6 @@ function delayFn(ms, fn) {
 
 function drawElf(elf) {
     let lt, lm, lb, rt, rm, rb;
-    let sp;
 
     if (elf.stance[0] == 1) {
         rt = '/';
@@ -41,7 +40,9 @@ function drawElf(elf) {
         torso: lm + '(   )' + rm,
         legs: ' ' + lb + '   ' + rb + ' ',
         //speed
-        speed: '  ' + elf.danceSpeed + '  '
+        speed: '  ' + elf.danceSpeed + '  ',
+        //elf's name
+        name: elf.name + '  '
     }
 }
 
@@ -57,8 +58,10 @@ function drawElves(elves) {
     let bottom = elfPictures.map((elf) => elf.legs).join(space);
     //speed
     let speed = elfPictures.map((elf) => elf.speed).join(space);
+    //name
+    let name = elfPictures.map((elf) => elf.name).join(space);
     // return top + '\n' + middle + '\n' + bottom;
-    return speed + '\n' + top + '\n' + middle + '\n' + bottom;
+    return speed + '\n' + top + '\n' + middle + '\n' + bottom + '\n\n' + name;
 }
 
 function displayElves(elves) {
