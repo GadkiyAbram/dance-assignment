@@ -328,6 +328,24 @@ function verdelit(elf) {
     }))
 }
 
+function taaffeit(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            leftHandDown(elf).then(leftLegIn);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }))
+}
+
+function sapfir(elf) {
+    return new Promise((resolve => {
+        setTimeout(() => {
+            rightHandDown(elf).then(rightLegIn);
+            resolve(elf);
+        }, elf.danceSpeed);
+    }))
+}
+
 // Эта функция принимает в качестве аргумента эльфа и драгоценность, которая
 // сейчас демонстрируется всем эльфам. Здесь нужно дать команду эльфу выполнить
 // какую-то фигуру или команду и вернуть Promise
@@ -359,6 +377,10 @@ function displayGemToElf(elf, gem) {
             return oneByOneLeftHandUp(elf).then(() => {
             }).then(() => oneByOneRightHandUp(elf)).then(() => bothHandsDown(elf));
         // .then(() => defaultMoves(elf));
+        case "Тааффеит":
+            return taaffeit(elf);
+        case "Сапфир":
+            return sapfir(elf);
         case "Топаз":
             return topaz(elf);
         case "Циркон":
