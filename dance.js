@@ -339,10 +339,18 @@ function displayGemToElf(elf, gem) {
     //     return bothHandsDown(elf);
     // }
     switch (gem) {
-        // case elf.favouriteGems[elf.favouriteGems.indexOf(gem)]:
-        //     return bothHandsUp(elf);
-        // case elf.dislikedGems[elf.dislikedGems.indexOf(gem)]:
-        //     return bothHandsDown(elf);
+        case elf.favouriteGems[elf.favouriteGems.indexOf(gem)]:
+            // return bothHandsUp(elf);
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // leftHandUp(elf);
+                    // rightHandUp(elf);
+                    elf.stance = [1, 1, 0, 0];
+                    resolve(elf);
+                }, elf.danceSpeed);
+            });
+        case elf.dislikedGems[elf.dislikedGems.indexOf(gem)]:
+            return bothHandsDown(elf);
         case "Танзанит":
             return tanzanit(elf);
         // return oneByOneLeftHandUp(elf).then(() => {

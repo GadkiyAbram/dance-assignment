@@ -1,5 +1,5 @@
-describe("Научить эльфа делать простые движения:", function() {
-	it("поднять стакан левой рукой", function(done) {
+describe("Научить эльфа делать простые движения руками:", function() {
+	it("поднять левую руку", function(done) {
 		let elf = {
 			danceSpeed: 10,
 			stance: [0, 0, 0, 0],
@@ -11,7 +11,7 @@ describe("Научить эльфа делать простые движения
 		})
 	});
 
-	it("аккуратно опустить левую руку со стаканом", function (done) {
+	it("опустить левую руку", function (done) {
 		let elf = {
 			danceSpeed: 10,
 			stance: [0, 0, 0, 0],
@@ -24,7 +24,7 @@ describe("Научить эльфа делать простые движения
 		})
 	})
 
-	it("поднять закуску правой рукой", function(done) {
+	it("поднять правую руку", function(done) {
 		let elf = {
 			danceSpeed: 10,
 			stance: [0, 0, 0, 0],
@@ -36,7 +36,19 @@ describe("Научить эльфа делать простые движения
 		})
 	});
 
-	it("поднять стаканы в левой и правой руках", function(done) {
+	it("опустить правую руку", function(done) {
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 1, 0, 0],
+		}
+
+		rightHandDown(elf).then((elf) => {
+			expect(elf.stance[1]).toEqual(0);
+			done();
+		})
+	});
+
+	it("поднять обе руки", function(done) {
 		let elf = {
 			danceSpeed: 10,
 			stance: [0, 0, 0, 0],
@@ -48,13 +60,11 @@ describe("Научить эльфа делать простые движения
 		// });
 
 		bothHandsUp(elf).then((elf) => {
-			expect(elf.stance[0]).toEqual(1);
-			expect(elf.stance[1]).toEqual(1);
-			done();
-
-			// rightHandUp(elf).then((elf) => {
-			//
-			// })
+			leftHandUp(elf).then((elf) => {
+				expect(elf.stance[0]).toEqual(1);
+				expect(elf.stance[1]).toEqual(1);
+				done();
+			})
 		});
 
 		// leftHandUp(elf).then(rightHandUp).then((elf) => {
@@ -62,5 +72,97 @@ describe("Научить эльфа делать простые движения
 		// 	expect(elf.stance[1]).toEqual(1);
 		// 	done();
 		// });
+	});
+});
+
+describe("Научить эльфа делать простые движения ногами:", function() {
+	it("выгнуть левую ногу", function(done) {
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		}
+
+		leftLegIn(elf).then((elf) => {
+			expect(elf.stance[2]).toEqual(1);
+			done();
+		})
+	});
+
+	it("вогнуть левую ногу", function (done) {
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		}
+
+		leftLegIn(elf).then((elf) => {
+			expect(elf.stance[2]).toEqual(1);
+			done();
+		})
+	})
+
+	it("выгнуть правую ногу", function(done) {
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 1],
+		}
+
+		rightLegOut(elf).then((elf) => {
+			expect(elf.stance[3]).toEqual(0);
+			done();
+		})
+	});
+
+	it("вогнуть правую ногу", function(done) {
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		}
+
+		rightLegIn(elf).then((elf) => {
+			expect(elf.stance[3]).toEqual(1);
+			done();
+		})
+	});
+
+	it("вогнуть обе ноги", function(done) {
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		}
+
+		// bothLegsIn(elf).then((elf) => {
+		// 	expect(elf.stance).toEqual([0, 0, 1, 1]);
+		// 	done();
+		// });
+
+		// bothLegsIn(elf).then((elf) => {
+		// 	leftLegIn(elf).then((elf) => {
+		// 		expect(elf.stance[2]).toEqual(1);
+		// 		expect(elf.stance[3]).toEqual(1);
+		// 		done();
+		// 	})
+		// });
+
+		leftLegIn(elf).then(rightLegIn).then((elf) => {
+			expect(elf.stance[2]).toEqual(1);
+			expect(elf.stance[3]).toEqual(1);
+			done();
+		});
+	});
+});
+
+describe("Проверить руакцию эльфа на камни:", function() {
+	it("увидев любимый камень, поднять обе руки", function(done) {
+		let gem = "Алмаз";
+		let elf = {
+			favouriteGems: ["Алмаз"],
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		}
+
+		displayGemToElf(elf, gem).then(() => {
+			expect(elf.stance).toEqual([1, 1, 0, 0]);
+			done();
+		});
 	});
 });
