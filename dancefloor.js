@@ -2,9 +2,9 @@ let gemSpeedShow = 2000;
 
 let dance = [
     [gemSpeedShow, allGems[40]],    //Андалузит
+    [gemSpeedShow, allGems[14]],    //Шпинель
     [gemSpeedShow, allGems[18]],    //Спессартин
     [gemSpeedShow, allGems[37]],    //Танзанит
-    [gemSpeedShow, allGems[14]],    //Шпинель
     [gemSpeedShow, allGems[20]],    //Родолит
     [gemSpeedShow, allGems[21]],    //Альмандин
     [gemSpeedShow, allGems[6]],     //Тааффеит

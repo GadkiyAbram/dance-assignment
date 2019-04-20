@@ -130,28 +130,14 @@ describe("Научить эльфа делать простые движения
 			stance: [0, 0, 0, 0],
 		}
 
-		// bothLegsIn(elf).then((elf) => {
-		// 	expect(elf.stance).toEqual([0, 0, 1, 1]);
-		// 	done();
-		// });
-
-		// bothLegsIn(elf).then((elf) => {
-		// 	leftLegIn(elf).then((elf) => {
-		// 		expect(elf.stance[2]).toEqual(1);
-		// 		expect(elf.stance[3]).toEqual(1);
-		// 		done();
-		// 	})
-		// });
-
-		leftLegIn(elf).then(rightLegIn).then((elf) => {
-			expect(elf.stance[2]).toEqual(1);
-			expect(elf.stance[3]).toEqual(1);
+		bothLegsIn(elf).then((elf) => {
+			expect(elf.stance).toEqual([0, 0, 1, 1]);
 			done();
 		});
 	});
 });
 
-describe("Проверить руакцию эльфа на камни:", function() {
+describe("Проверить реакцию эльфа на камни:", function() {
 	it("увидев любимый камень, поднять обе руки", function(done) {
 		let gem = "Алмаз";
 		let elf = {
@@ -163,6 +149,18 @@ describe("Проверить руакцию эльфа на камни:", functi
 		displayGemToElf(elf, gem).then(() => {
 			expect(elf.stance).toEqual([1, 1, 0, 0]);
 			done();
+			//jasmine timer / mock
 		});
+	});
+});
+
+describe("Протестировать функцию arraysCompare:", function() {
+	it("скомбинировать массивы", function() {
+
+		let array = [0, 0, 0, 0];
+		let arrays = [[0, 0, 1, 0], [0, 0, 0, 1]];
+		let expectedArray = [0, 0, 1, 1];
+
+		expect(arraysCompare(array, arrays)).toEqual(expectedArray);
 	});
 });

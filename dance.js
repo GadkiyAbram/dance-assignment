@@ -138,14 +138,58 @@ function bothLegsOut(elf) {
     }));
 }
 
+// function bothLegsIn(elf) {
+//     return new Promise((resolve => {
+//         setTimeout(() => {
+//             leftLegIn(elf);
+//             rightLegIn(elf);
+//             resolve(elf);
+//         }, elf.danceSpeed);
+//     }));
+// }
+
+// function bothLegsIn(elf) {
+//     return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(() => {
+//         return elf;
+//     });
+// }
+
+function arraysCompare(array, arrays){
+    let resultArr = [0, 0, 0, 0];
+        arrays.forEach((arr) => {                        //[0, 0, 1, 0]  finArray
+
+            for (let i = 0; i < arr.length; i++) {       //[0, 0, 1, 0]  arr1
+
+                if (arr[i] != array[i]) {                //[0, 0, 0, 1]  arr2
+                    resultArr[i] = arr[i];               //[0, 0, 0, 0]  array
+                }
+            }
+        })
+    return resultArr;
+}
+
 function bothLegsIn(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            leftLegIn(elf);
-            rightLegIn(elf);
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
+    //[0, 0, 0, 0], [0, 0, 0, 0]
+
+    //[0, 0, 1, 1], [0, 0, 1, 1]
+
+    return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(values => {
+        values.forEach((elf) => {
+            // console.log(elf.stance);
+            for (let i = 0; i < elf.stance.length; i++){
+                console.log(elf.stance[i] + " " + initialStance[i]);
+                if (elf.stance[i] != initialStance[i]){
+                    finalStance[i] = elf.stance[i];
+                    console.log("finalStance: " + finalStance[i]);
+                }
+            }
+        });
+        console.log(finalStance);
+        elf.stance = finalStance;
+        return elf;
+    });
 }
 
 function citrin(elf) {
@@ -298,11 +342,11 @@ function topaz(elf) {
 }
 
 function oneByOneRightHandUp(elf) {
-    var p = Promise.resolve(elf);
+    var promise = Promise.resolve(elf);
     elves.forEach(elf => {
-        p = p.then(() => rightHandUp(elf));
+        promise = promise.then(() => rightHandUp(elf));
     });
-    return p;
+    return promise;
 }
 
 function oneByOneLeftHandUp(elf) {
@@ -349,6 +393,7 @@ function sapfir(elf) {
 // Эта функция принимает в качестве аргумента эльфа и драгоценность, которая
 // сейчас демонстрируется всем эльфам. Здесь нужно дать команду эльфу выполнить
 // какую-то фигуру или команду и вернуть Promise
+
 function displayGemToElf(elf, gem) {
     // if (gem == elf.favouriteGems[elf.favouriteGems.indexOf(gem)]){
     //     return bothHandsUp(elf);
