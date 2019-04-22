@@ -1,8 +1,12 @@
 let gemSpeedShow = 2000;
 
 let dance = [
+    [gemSpeedShow, allGems[1]],     //Хризолит
     [gemSpeedShow, allGems[40]],    //Андалузит
+    [gemSpeedShow, allGems[19]],    //Пироп
+    [gemSpeedShow, allGems[24]],    //Цитрин
     [gemSpeedShow, allGems[14]],    //Шпинель
+    [gemSpeedShow, allGems[2]],     //Эвклаз
     [gemSpeedShow, allGems[18]],    //Спессартин
     [gemSpeedShow, allGems[37]],    //Танзанит
     [gemSpeedShow, allGems[20]],    //Родолит
@@ -13,7 +17,7 @@ let dance = [
     [gemSpeedShow, allGems[18]],    //Спессартин
     [gemSpeedShow, allGems[31]],    //Верделит
     [gemSpeedShow, allGems[39]],    //Гиацинт
-    [gemSpeedShow, allGems[19]],
+    [gemSpeedShow, allGems[19]],    //Пироп
     [gemSpeedShow, allGems[22]],
     [gemSpeedShow, allGems[36]],
     [gemSpeedShow, allGems[0]],     //Алмаз
@@ -98,7 +102,8 @@ let elves = [
         stance: [0, 0, 0, 0],
         favouriteGems: [allGems[1]],        //Хризолит
         dislikedGems: [allGems[0]]          //Алмаз
-    }];
+    }
+    ];
 
 // Эта функция должна вернуть список эльфов для отрисовки
 function getElves() {

@@ -62,34 +62,54 @@ function rightHandDown(elf) {
 }
 
 function leftHandUpLeftLegIn(elf){
-    return new Promise((resolve => {
-        setTimeout(() => {
-            leftHandUp(elf);
-            leftLegIn(elf);
-            // elf.stance = [1, elf.stance[1], 1, elf.stance[3]];
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
+
+    return Promise.all([leftHandUp(elf), leftLegIn(elf)]).then(values => {
+        values.forEach((elf) => {
+            for (let i = 0; i < elf.stance.length; i++) {
+                if (elf.stance[i] != initialStance[i]) {
+                    finalStance[i] = elf.stance[i];
+                }
+            }
+        });
+        elf.stance = finalStance;
+        return elf;
+    });
 }
 
 function bothHandsDown(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            leftHandDown(elf);
-            rightHandDown(elf);
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
+
+    return Promise.all([leftHandDown(elf), rightHandDown(elf)]).then(values => {
+        values.forEach((elf) => {
+            for (let i = 0; i < elf.stance.length; i++) {
+                if (elf.stance[i] != initialStance[i]) {
+                    finalStance[i] = elf.stance[i];
+                }
+            }
+        });
+        elf.stance = finalStance;
+        return elf;
+    });
 }
 
 function bothHandsUp(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            leftHandUp(elf);
-            rightHandUp(elf);
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
+
+    return Promise.all([leftHandUp(elf), rightHandUp(elf)]).then(values => {
+        values.forEach((elf) => {
+            for (let i = 0; i < elf.stance.length; i++) {
+                if (elf.stance[i] != initialStance[i]) {
+                    finalStance[i] = elf.stance[i];
+                }
+            }
+        });
+        elf.stance = finalStance;
+        return elf;
+    });
 }
 
 function leftLegIn(elf){
@@ -129,67 +149,69 @@ function rightLegOut(elf){
 }
 
 function bothLegsOut(elf) {
-    return new Promise((resolve => {
-        setTimeout(() => {
-            leftLegOut(elf);
-            rightLegOut(elf);
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
-}
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
 
-// function bothLegsIn(elf) {
-//     return new Promise((resolve => {
-//         setTimeout(() => {
-//             leftLegIn(elf);
-//             rightLegIn(elf);
-//             resolve(elf);
-//         }, elf.danceSpeed);
-//     }));
-// }
-
-// function bothLegsIn(elf) {
-//     return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(() => {
-//         return elf;
-//     });
-// }
-
-function arraysCompare(array, arrays){
-    let resultArr = [0, 0, 0, 0];
-        arrays.forEach((arr) => {                        //[0, 0, 1, 0]  finArray
-
-            for (let i = 0; i < arr.length; i++) {       //[0, 0, 1, 0]  arr1
-
-                if (arr[i] != array[i]) {                //[0, 0, 0, 1]  arr2
-                    resultArr[i] = arr[i];               //[0, 0, 0, 0]  array
+    return Promise.all([leftLegOut(elf), rightLegOut(elf)]).then(values => {
+        values.forEach((elf) => {
+            for (let i = 0; i < elf.stance.length; i++){
+                if (elf.stance[i] != initialStance[i]){
+                    finalStance[i] = elf.stance[i];
                 }
             }
-        })
-    return resultArr;
+        });
+        elf.stance = finalStance;
+        return elf;
+    })
 }
 
 function bothLegsIn(elf) {
     let initialStance = elf.stance;
     let finalStance = elf.stance;
-    //[0, 0, 0, 0], [0, 0, 0, 0]
-
-    //[0, 0, 1, 1], [0, 0, 1, 1]
 
     return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(values => {
         values.forEach((elf) => {
-            // console.log(elf.stance);
             for (let i = 0; i < elf.stance.length; i++){
-                console.log(elf.stance[i] + " " + initialStance[i]);
                 if (elf.stance[i] != initialStance[i]){
                     finalStance[i] = elf.stance[i];
-                    console.log("finalStance: " + finalStance[i]);
                 }
             }
         });
-        console.log(finalStance);
         elf.stance = finalStance;
         return elf;
     });
+}
+
+function rightHandDownLeftLegOutLeftHandUp(elf){
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
+
+    return Promise.all([rightHandDown(elf), leftLegOut(elf), leftHandUp(elf)]).then(values => {
+        values.forEach((elf) => {
+            for (let i = 0; i < elf.stance.length; i++){
+                if (elf.stance[i] != initialStance[i]){
+                    finalStance[i] = elf.stance[i];
+                }
+            }
+        });
+        elf.stance = finalStance;
+        return elf;
+    });
+}
+
+//EXTRA
+function arraysCompare(array, arrays){
+    let resultArr = [0, 0, 0, 0];
+    arrays.forEach((arr) => {                        //[0, 0, 1, 0]  finArray
+
+        for (let i = 0; i < arr.length; i++) {       //[0, 0, 1, 0]  arr1
+
+            if (arr[i] != array[i]) {                //[0, 0, 0, 1]  arr2
+                resultArr[i] = arr[i];               //[0, 0, 0, 0]  array
+            }
+        }
+    })
+    return resultArr;
 }
 
 function citrin(elf) {
@@ -251,17 +273,12 @@ function rodolit(elf) {
 }
 
 function pirop(elf) {
-    elf.stance = [0, 0, 0, 0];
     return new Promise((resolve => {
         setTimeout(() => {
-            leftLegIn(elf);
-            rightLegIn(elf);
-            leftHandUp((elf));
-            rightHandUp(elf).then(() => {
-                leftLegOut(elf);
-                rightLegOut(elf);
-                leftHandDown(elf);
-                rightHandDown(elf);
+            bothLegsIn(elf);
+            bothHandsUp(elf).then(() => {
+                bothLegsOut(elf);
+                bothHandsDown(elf);
             });
             resolve(elf);
         }, elf.danceSpeed);
@@ -272,15 +289,14 @@ function spessartin(elf) {
     elf.stance = [0, 0, 1, 1];
     return new Promise((resolve => {
         setTimeout(() => {
-            leftLegOut(elf).then(() => {
-                leftHandUp(elf).then(() => {
-                    rightHandUp(elf).then(() => {
-                        rightLegOut(elf);
+            leftLegOut(elf).then(() => {            //0
+                leftHandUp(elf).then(() => {        //1
+                    rightHandUp(elf).then(() => {   //1
+                        rightLegOut(elf);                     //0
                     });
                 });
             });
             resolve(elf);
-
         }, elf.danceSpeed);
     }))
 }
@@ -403,21 +419,11 @@ function displayGemToElf(elf, gem) {
     // }
     switch (gem) {
         case elf.favouriteGems[elf.favouriteGems.indexOf(gem)]:
-            // return bothHandsUp(elf);
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    // leftHandUp(elf);
-                    // rightHandUp(elf);
-                    elf.stance = [1, 1, 0, 0];
-                    resolve(elf);
-                }, elf.danceSpeed);
-            });
+            return bothHandsUp(elf);
         case elf.dislikedGems[elf.dislikedGems.indexOf(gem)]:
             return bothHandsDown(elf);
         case "Танзанит":
             return tanzanit(elf);
-        // return oneByOneLeftHandUp(elf).then(() => {
-        // }).then(() => oneByOneRightHandUp(elf)).then(() => bothHandsDown(elf));
         case "Шпинель":
             return oneByOneLeftHandUp(elf).then(() => {
             }).then(() => oneByOneRightHandUp(elf)).then(() => bothHandsDown(elf));
@@ -436,7 +442,6 @@ function displayGemToElf(elf, gem) {
             return ametist(elf);
         case "Цитрин":
             return citrin(elf);
-        // return oneThrOneHandsUp(elf).then(() => defaultMoves(elf));
         case "Кварц":
             return quartz(elf);
         case "Альмандин":
