@@ -211,16 +211,18 @@ describe("Проверить реакцию эльфа на камни:", functi
 
 		jasmine.clock().install();
 
+		setTimeout(function() {
+			pirop(elf);
+		}, 10);
+
 		let elf = {
 			danceSpeed: 10,
 			stance: [0, 0, 0, 0],
 		}
 
-		pirop(elf);
-
-		jasmine.clock().tick(20);
+		jasmine.clock().tick(30);
 		expect(elf.stance).toEqual([1, 1, 1, 1]);
-		jasmine.clock().tick(40);
+		jasmine.clock().tick(160);
 		expect(elf.stance).toEqual([0, 0, 0, 0]);
 		done();
 		jasmine.clock().uninstall();

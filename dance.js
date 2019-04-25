@@ -273,17 +273,70 @@ function rodolit(elf) {
 }
 
 function pirop(elf) {
+
+    let initialStance = elf.stance;
+    let finalStance = elf.stance;
+    let finalfinalStance = elf.stance;
+
     return new Promise((resolve => {
         setTimeout(() => {
-            bothLegsIn(elf);
-            bothHandsUp(elf).then(() => {
-                bothLegsOut(elf);
-                bothHandsDown(elf);
-            });
-            resolve(elf);
+            return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
+                .then((data) => {
+                    data.forEach((elf) => {
+                        for (let i = 0; i < elf.stance.length; i++){
+                            if (elf.stance[i] != initialStance[i]){
+                                finalStance[i] = elf.stance[i];
+                            }
+                        }
+                        elf.stance = finalStance;
+                        console.log("finalStance: " + finalStance);
+                    });
+                }).then(() => {
+                    return Promise.all([bothLegsOut(elf), bothHandsDown(elf)])
+                        .then((data) => {
+                            data.forEach((elf) => {
+                                for (let i = 0; i < elf.stance.length; i++){
+                                    if (elf.stance[i] != finalStance[i]){
+                                        finalfinalStance[i] = elf.stance[i];
+                                    }
+                                }
+                                elf.stance = finalfinalStance;
+                                console.log("finalfinalStance: " + finalfinalStance);
+                                resolve(elf);
+                                // return elf;
+                            });
+                        })
+                });
+            // resolve(elf);
         }, elf.danceSpeed);
     }));
 }
+
+// function pirop(elf) {
+//     return new Promise((resolve => {
+//         setTimeout(() => {
+//             bothLegsIn(elf);
+//             bothHandsUp(elf).then(() => {
+//                 bothLegsOut(elf);
+//                 bothHandsDown(elf);
+//             });
+//             resolve(elf);
+//         }, elf.danceSpeed);
+//     }));
+// }
+
+// function pirop(elf) {
+//     return new Promise((resolve => {
+//         setTimeout(() => {
+//             return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
+//                 .then(() => {
+//                     return Promise.all([bothLegsOut(elf), bothHandsDown(elf)]);
+//                     resolve(elf);
+//                 });
+//             resolve(elf);
+//         }, elf.danceSpeed);
+//     }));
+// }
 
 function spessartin(elf) {
     elf.stance = [0, 0, 1, 1];
