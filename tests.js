@@ -254,7 +254,7 @@ describe("Проверить реакцию эльфа на камни:", functi
 			expect(elf.stance).toEqual([0, 0, 0, 0]);
 			console.log(elf.stance);
 			done();
-		}, 55);
+		}, 60);
 	});
 
 	it("цитрин: обе руки поднимаются вверх, затем опускаются. Повторить два раза", function (done) {
@@ -295,7 +295,7 @@ describe("Проверить реакцию эльфа на камни:", functi
 
 		setTimeout(() => {		//left leg -> 0
 			expect(elf.stance).toEqual([0, 0, 0, 1]);
-		}, 22);
+		}, 25);
 
 		setTimeout(() => {		//left hand -> 1
 			expect(elf.stance).toEqual([1, 0, 0, 1]);
@@ -338,8 +338,9 @@ describe("Протестировать функцию arraysCompare:", function(
 
 		let array = [0, 0, 0, 0];
 		let arrays = [[0, 0, 1, 0], [0, 0, 0, 1]];
+		let arr = [0, 0, 0, 0];
 		let expectedArray = [0, 0, 1, 1];
 
-		expect(arraysCompare(array, arrays)).toEqual(expectedArray);
+		expect(arraysCompare(array, arrays, arr)).toEqual(expectedArray);
 	});
 });

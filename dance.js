@@ -66,14 +66,15 @@ function leftHandUpLeftLegIn(elf){
     let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandUp(elf), leftLegIn(elf)]).then(values => {
-        values.forEach((elf) => {
-            for (let i = 0; i < elf.stance.length; i++) {
-                if (elf.stance[i] != initialStance[i]) {
-                    finalStance[i] = elf.stance[i];
-                }
-            }
-        });
-        elf.stance = finalStance;
+        // values.forEach((elf) => {
+        //     for (let i = 0; i < elf.stance.length; i++) {
+        //         if (elf.stance[i] != initialStance[i]) {
+        //             finalStance[i] = elf.stance[i];
+        //         }
+        //     }
+        // });
+        // elf.stance = finalStance;
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
 }
@@ -83,14 +84,15 @@ function bothHandsDown(elf) {
     let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandDown(elf), rightHandDown(elf)]).then(values => {
-        values.forEach((elf) => {
-            for (let i = 0; i < elf.stance.length; i++) {
-                if (elf.stance[i] != initialStance[i]) {
-                    finalStance[i] = elf.stance[i];
-                }
-            }
-        });
-        elf.stance = finalStance;
+        // values.forEach((elf) => {
+        //     for (let i = 0; i < elf.stance.length; i++) {
+        //         if (elf.stance[i] != initialStance[i]) {
+        //             finalStance[i] = elf.stance[i];
+        //         }
+        //     }
+        // });
+        // elf.stance = finalStance;
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
 }
@@ -100,14 +102,15 @@ function bothHandsUp(elf) {
     let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandUp(elf), rightHandUp(elf)]).then(values => {
-        values.forEach((elf) => {
-            for (let i = 0; i < elf.stance.length; i++) {
-                if (elf.stance[i] != initialStance[i]) {
-                    finalStance[i] = elf.stance[i];
-                }
-            }
-        });
-        elf.stance = finalStance;
+        // values.forEach((elf) => {
+        //     for (let i = 0; i < elf.stance.length; i++) {
+        //         if (elf.stance[i] != initialStance[i]) {
+        //             finalStance[i] = elf.stance[i];
+        //         }
+        //     }
+        // });
+        // elf.stance = finalStance;
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
 }
@@ -148,39 +151,59 @@ function rightLegOut(elf){
     }));
 }
 
+// function bothLegsOut(elf) {
+//     let initialStance = elf.stance.slice(0);
+//     let finalStance = elf.stance.slice(0);
+//
+//     return Promise.all([leftLegOut(elf), rightLegOut(elf)]).then(values => {
+//         values.forEach((elf) => {
+//             for (let i = 0; i < elf.stance.length; i++){
+//                 if (elf.stance[i] != initialStance[i]){
+//                     finalStance[i] = elf.stance[i];
+//                 }
+//             }
+//         });
+//         elf.stance = finalStance;
+//         return elf;
+//     })
+// }
+
 function bothLegsOut(elf) {
     let initialStance = elf.stance.slice(0);
     let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftLegOut(elf), rightLegOut(elf)]).then(values => {
-        values.forEach((elf) => {
-            for (let i = 0; i < elf.stance.length; i++){
-                if (elf.stance[i] != initialStance[i]){
-                    finalStance[i] = elf.stance[i];
-                }
-            }
-        });
-        elf.stance = finalStance;
+
+        // values.forEach((elf) => {
+        //     for (let i = 0; i < elf.stance.length; i++){
+        //         if (elf.stance[i] != initialStance[i]){
+        //             finalStance[i] = elf.stance[i];
+        //         }
+        //     }
+        // });
+        // elf.stance = finalStance;
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
+
         return elf;
     })
 }
 
 /*EXTRA
-    array - elf.stance
+    array - initialStance
     resultArr - finalStance
     arrays - values
 */
-function arraysCompare(array, arrays){
-    let resultArr = [0, 0, 0, 0];
+function arraysCompare(array, arrays, arr){
+    let resultArr = arr.slice(0);
+
     arrays.forEach((arr) => {
-
         for (let i = 0; i < arr.length; i++) {
-
             if (arr[i] != array[i]) {
                 resultArr[i] = arr[i];
             }
         }
-    })
+    });
+
     return resultArr;
 }
 
@@ -189,14 +212,16 @@ function bothLegsIn(elf) {
     let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(values => {
-        values.forEach((elf) => {
-            for (let i = 0; i < elf.stance.length; i++){
-                if (elf.stance[i] != initialStance[i]){
-                    finalStance[i] = elf.stance[i];
-                }
-            }
-        });
-        elf.stance = finalStance;
+        // values.forEach((elf) => {
+        //     for (let i = 0; i < elf.stance.length; i++){
+        //         if (elf.stance[i] != initialStance[i]){
+        //             finalStance[i] = elf.stance[i];
+        //         }
+        //     }
+        // });
+        // elf.stance = finalStance;
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
+
         return elf;
     });
 }
@@ -206,14 +231,15 @@ function rightHandDownLeftLegOutLeftHandUp(elf){
     let finalStance = elf.stance.slice(0);
 
     return Promise.all([rightHandDown(elf), leftLegOut(elf), leftHandUp(elf)]).then(values => {
-        values.forEach((elf) => {
-            for (let i = 0; i < elf.stance.length; i++){
-                if (elf.stance[i] != initialStance[i]){
-                    finalStance[i] = elf.stance[i];
-                }
-            }
-        });
-        elf.stance = finalStance;
+        // values.forEach((elf) => {
+        //     for (let i = 0; i < elf.stance.length; i++){
+        //         if (elf.stance[i] != initialStance[i]){
+        //             finalStance[i] = elf.stance[i];
+        //         }
+        //     }
+        // });
+        // elf.stance = finalStance;
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
 }
@@ -324,28 +350,31 @@ function pirop(elf) {       //fine
 
     return new Promise((resolve => {
         return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
-            .then((data) => {
-                data.forEach((elf) => {
-                    for (let i = 0; i < elf.stance.length; i++){
-                        if (elf.stance[i] != initialStance[i]){
-                            finalStance[i] = elf.stance[i];
-                        }
-                    }
-                });
-                elf.stance = finalStance;
-                finalStance = elf.stance.slice(0);
-            }).then(() => {
+            .then((values) => {
 
+                // values.forEach((elf) => {
+                //     for (let i = 0; i < elf.stance.length; i++){
+                //         if (elf.stance[i] != initialStance[i]){
+                //             finalStance[i] = elf.stance[i];
+                //         }
+                //     }
+                // });
+                // elf.stance = finalStance;
+                elf.stance = arraysCompare(initialStance, values, elf.stance);
+                // finalStance = elf.stance.slice(0);
+            }).then(() => {
                 return Promise.all([bothLegsOut(elf), bothHandsDown(elf)])
-                    .then((data) => {
-                        data.forEach((elf) => {
-                            for (let i = 0; i < elf.stance.length; i++){
-                                if (elf.stance[i] != finalStance[i]){
-                                    superfinalStance[i] = elf.stance[i];
-                                }
-                            }
-                        });
-                        elf.stance = superfinalStance;
+                    .then((values) => {
+
+                        // values.forEach((elf) => {
+                        //     for (let i = 0; i < elf.stance.length; i++){
+                        //         if (elf.stance[i] != finalStance[i]){
+                        //             superfinalStance[i] = elf.stance[i];
+                        //         }
+                        //     }
+                        // });
+                        // elf.stance = superfinalStance;
+                        elf.stance = arraysCompare(initialStance, values, elf.stance);
                         resolve(elf);
                     })
             });
