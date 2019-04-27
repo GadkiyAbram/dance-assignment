@@ -1,3 +1,11 @@
+/*EXTRA
+    to pass:
+    array - initialStance
+    resultArr - finalStance
+    arrays - values
+    arr - elf.stance
+*/
+
 function arraysCompare(array, arrays, arr){
     let resultArr = arr.slice(0);
 

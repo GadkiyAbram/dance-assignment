@@ -9,22 +9,6 @@ let allGems = ['Алмаз', 'Хризолит', 'Эвклаз', 'Корунд',
 // указанное движение. Успешно выполненное движение должно зарезолвится снова
 // в этого же эльфа с обновленной пастурой.
 
-// let elvesPromises = new Array();
-// elvesPromises.push(
-//     leftHandUp(elf),
-//     leftHandDown(elf),
-//     rightHandUp(elf),
-//     rightHandDown(elf),
-//     leftLegIn(elf),
-//     leftLegOut(elf),
-//     rightLegIn(elf),
-//     rightLegOut(elf),
-//     bothHandsUp(elf),
-//     bothHandsDown(elf),
-//     bothLegsIn(elf),
-//     bothLegsOut(elf)
-// );
-
 function leftHandUp(elf) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -63,17 +47,8 @@ function rightHandDown(elf) {
 
 function leftHandUpLeftLegIn(elf){
     let initialStance = elf.stance.slice(0);
-    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandUp(elf), leftLegIn(elf)]).then(values => {
-        // values.forEach((elf) => {
-        //     for (let i = 0; i < elf.stance.length; i++) {
-        //         if (elf.stance[i] != initialStance[i]) {
-        //             finalStance[i] = elf.stance[i];
-        //         }
-        //     }
-        // });
-        // elf.stance = finalStance;
         elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
@@ -81,17 +56,8 @@ function leftHandUpLeftLegIn(elf){
 
 function bothHandsDown(elf) {
     let initialStance = elf.stance.slice(0);
-    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandDown(elf), rightHandDown(elf)]).then(values => {
-        // values.forEach((elf) => {
-        //     for (let i = 0; i < elf.stance.length; i++) {
-        //         if (elf.stance[i] != initialStance[i]) {
-        //             finalStance[i] = elf.stance[i];
-        //         }
-        //     }
-        // });
-        // elf.stance = finalStance;
         elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
@@ -99,17 +65,8 @@ function bothHandsDown(elf) {
 
 function bothHandsUp(elf) {
     let initialStance = elf.stance.slice(0);
-    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandUp(elf), rightHandUp(elf)]).then(values => {
-        // values.forEach((elf) => {
-        //     for (let i = 0; i < elf.stance.length; i++) {
-        //         if (elf.stance[i] != initialStance[i]) {
-        //             finalStance[i] = elf.stance[i];
-        //         }
-        //     }
-        // });
-        // elf.stance = finalStance;
         elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
@@ -151,75 +108,20 @@ function rightLegOut(elf){
     }));
 }
 
-// function bothLegsOut(elf) {
-//     let initialStance = elf.stance.slice(0);
-//     let finalStance = elf.stance.slice(0);
-//
-//     return Promise.all([leftLegOut(elf), rightLegOut(elf)]).then(values => {
-//         values.forEach((elf) => {
-//             for (let i = 0; i < elf.stance.length; i++){
-//                 if (elf.stance[i] != initialStance[i]){
-//                     finalStance[i] = elf.stance[i];
-//                 }
-//             }
-//         });
-//         elf.stance = finalStance;
-//         return elf;
-//     })
-// }
-
 function bothLegsOut(elf) {
     let initialStance = elf.stance.slice(0);
-    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftLegOut(elf), rightLegOut(elf)]).then(values => {
-
-        // values.forEach((elf) => {
-        //     for (let i = 0; i < elf.stance.length; i++){
-        //         if (elf.stance[i] != initialStance[i]){
-        //             finalStance[i] = elf.stance[i];
-        //         }
-        //     }
-        // });
-        // elf.stance = finalStance;
         elf.stance = arraysCompare(initialStance, values, elf.stance);
 
         return elf;
     })
 }
 
-/*EXTRA
-    array - initialStance
-    resultArr - finalStance
-    arrays - values
-*/
-function arraysCompare(array, arrays, arr){
-    let resultArr = arr.slice(0);
-
-    arrays.forEach((arr) => {
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] != array[i]) {
-                resultArr[i] = arr[i];
-            }
-        }
-    });
-
-    return resultArr;
-}
-
 function bothLegsIn(elf) {
     let initialStance = elf.stance.slice(0);
-    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(values => {
-        // values.forEach((elf) => {
-        //     for (let i = 0; i < elf.stance.length; i++){
-        //         if (elf.stance[i] != initialStance[i]){
-        //             finalStance[i] = elf.stance[i];
-        //         }
-        //     }
-        // });
-        // elf.stance = finalStance;
         elf.stance = arraysCompare(initialStance, values, elf.stance);
 
         return elf;
@@ -228,17 +130,8 @@ function bothLegsIn(elf) {
 
 function rightHandDownLeftLegOutLeftHandUp(elf){
     let initialStance = elf.stance.slice(0);
-    let finalStance = elf.stance.slice(0);
 
     return Promise.all([rightHandDown(elf), leftLegOut(elf), leftHandUp(elf)]).then(values => {
-        // values.forEach((elf) => {
-        //     for (let i = 0; i < elf.stance.length; i++){
-        //         if (elf.stance[i] != initialStance[i]){
-        //             finalStance[i] = elf.stance[i];
-        //         }
-        //     }
-        // });
-        // elf.stance = finalStance;
         elf.stance = arraysCompare(initialStance, values, elf.stance);
         return elf;
     });
@@ -273,62 +166,32 @@ function ametist(elf) {     //fine
 }
 
 function quartz(elf) {
-    let initialStance = elf.stance.slice(0);         //0 0 0 0
-    let finalStance = elf.stance.slice(0);           //0 0 0 0
-    let superfinalStance = elf.stance.slice(0);      //0 0 0 0
+    let initialStance = elf.stance.slice(0);
 
     return new Promise((resolve => {
         return Promise.all([leftLegIn(elf), rightLegIn(elf)])
-            .then((data) => {
-                data.forEach((elf) => {
-                    for (let i = 0; i < elf.stance.length; i++) {
-                        if (elf.stance[i] != initialStance[i]) {
-                            finalStance[i] = elf.stance[i];
-                        }
-                    }
-                });
-                elf.stance = finalStance;
-                finalStance = elf.stance.slice(0);
+            .then((values) => {
+                elf.stance = arraysCompare(initialStance, values, elf.stance);
             }).then(() => {
 
                 return Promise.all([leftLegOut(elf), rightLegOut(elf)])
-                    .then((data) => {
-                        data.forEach((elf) => {
-                            for (let i = 0; i < elf.stance.length; i++) {
-                                if (elf.stance[i] != finalStance[i]) {
-                                    superfinalStance[i] = elf.stance[i];
-                                }
-                            }
-                        });
-                        elf.stance = superfinalStance;
+                    .then((values) => {
+                        elf.stance = arraysCompare(initialStance, values, elf.stance);
                         resolve(elf);
                     })
             });
     }));
 }
 
-// function quartz(elf) {
-//     return new Promise((resolve => {
-//         setTimeout(() => {
-//             leftLegIn(elf);
-//             rightLegIn(elf).then(() => {
-//                 leftLegOut(elf);
-//                 rightLegOut(elf);
-//             });
-//             resolve(elf);
-//         }, elf.danceSpeed);
-//     }));
-// }
-
 function almandin(elf) {
-    elf.stance = [elf.stance[0], elf.stance[1], 1, elf.stance[3]];
-    return new Promise((resolve => {
-        setTimeout(() => {
-            leftHandUp(elf);
-            leftLegOut(elf);
-            resolve(elf);
-        }, elf.danceSpeed);
-    }));
+    elf.stance = [0, 0, 1, 0];
+    let initialStance = elf.stance.slice(0);
+
+    return Promise.all([leftHandUp(elf), leftLegOut(elf)]).then(values => {
+        elf.stance = arraysCompare(initialStance, values, elf.stance);
+        return elf;
+    });
+
 }
 
 function rodolit(elf) {
@@ -351,29 +214,10 @@ function pirop(elf) {       //fine
     return new Promise((resolve => {
         return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
             .then((values) => {
-
-                // values.forEach((elf) => {
-                //     for (let i = 0; i < elf.stance.length; i++){
-                //         if (elf.stance[i] != initialStance[i]){
-                //             finalStance[i] = elf.stance[i];
-                //         }
-                //     }
-                // });
-                // elf.stance = finalStance;
                 elf.stance = arraysCompare(initialStance, values, elf.stance);
-                // finalStance = elf.stance.slice(0);
             }).then(() => {
                 return Promise.all([bothLegsOut(elf), bothHandsDown(elf)])
                     .then((values) => {
-
-                        // values.forEach((elf) => {
-                        //     for (let i = 0; i < elf.stance.length; i++){
-                        //         if (elf.stance[i] != finalStance[i]){
-                        //             superfinalStance[i] = elf.stance[i];
-                        //         }
-                        //     }
-                        // });
-                        // elf.stance = superfinalStance;
                         elf.stance = arraysCompare(initialStance, values, elf.stance);
                         resolve(elf);
                     })

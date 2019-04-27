@@ -331,6 +331,20 @@ describe("Проверить реакцию эльфа на камни:", functi
 			done();
 		}, 30);
 	});
+
+	it("Альмандин: одновременно левая рука поднимается и левая нога выставляется", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 1, 1],		//[1, 0, 0, 1]
+		};
+
+		almandin(elf).then((elf) => {
+			expect(elf.stance).toEqual([1, 0, 0, 1]);
+			done();
+		});
+
+	});
 });
 
 describe("Протестировать функцию arraysCompare:", function() {

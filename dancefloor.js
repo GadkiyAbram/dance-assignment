@@ -10,7 +10,7 @@ let dance = [
     // [gemSpeedShow, allGems[18]],    //Спессартин
     // [gemSpeedShow, allGems[37]],    //Танзанит
     // [gemSpeedShow, allGems[20]],    //Родолит
-    // [gemSpeedShow, allGems[21]],    //Альмандин
+    [gemSpeedShow, allGems[21]],    //Альмандин
     // [gemSpeedShow, allGems[6]],     //Тааффеит
     // [gemSpeedShow, allGems[5]],     //Сапфир
     // [gemSpeedShow, allGems[38]],    //Циркон
