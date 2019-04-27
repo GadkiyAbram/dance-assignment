@@ -188,7 +188,6 @@ describe("Проверить реакцию эльфа на камни:", functi
 		displayGemToElf(elf, gem).then(() => {
 			expect(elf.stance).toEqual([1, 1, 0, 0]);
 			done();
-			//jasmine timer / mock
 		});
 	});
 
@@ -205,13 +204,10 @@ describe("Проверить реакцию эльфа на камни:", functi
 		displayGemToElf(elf, gem).then(() => {
 			expect(elf.stance).toEqual([0, 0, 0, 0]);
 			done();
-			//jasmine timer / mock
 		});
 	});
 
 	it("пироп: сразу ноги собираются, руки поднимаются, затем ноги выставляются, руки опускаются", function (done) {
-
-		// jasmine.clock().install();
 
 		let elf = {
 			danceSpeed: 10,
@@ -222,6 +218,110 @@ describe("Проверить реакцию эльфа на камни:", functi
 
 		setTimeout(() => {
 			expect(elf.stance).toEqual([1, 1, 1, 1]);
+		}, 15);
+
+		setTimeout(() => {
+			expect(elf.stance).toEqual([0, 0, 0, 0]);
+			done();
+		}, 30);
+	});
+
+	it("аметист: левая рука поднимается, правая рука поднимается, левая рука опускается, правая рука опускается", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		};
+
+		ametist(elf);
+
+		setTimeout(() => {		//left hand up -> 1, 1
+			expect(elf.stance).toEqual([1, 0, 0, 0]);
+			console.log(elf.stance);
+		}, 22);
+
+		setTimeout(() => {		//right hand up -> 1
+			expect(elf.stance).toEqual([1, 1, 0, 0]);
+			console.log(elf.stance);
+		}, 33);
+
+		setTimeout(() => {		//left hand down -> 0
+			expect(elf.stance).toEqual([0, 1, 0, 0]);
+			console.log(elf.stance);
+		}, 44);
+
+		setTimeout(() => {		//right hand down -> 0
+			expect(elf.stance).toEqual([0, 0, 0, 0]);
+			console.log(elf.stance);
+			done();
+		}, 55);
+	});
+
+	it("цитрин: обе руки поднимаются вверх, затем опускаются. Повторить два раза", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 1, 1],
+		};
+
+		citrin(elf);
+
+		setTimeout(() => {		//both hands up -> 1, 1
+			expect(elf.stance).toEqual([1, 1, 1, 1]);
+		}, 26);
+
+		setTimeout(() => {		//both hands down -> 0, 0
+			expect(elf.stance).toEqual([0, 0, 1, 1]);
+		}, 36);
+
+		setTimeout(() => {		//both hands up -> 1, 1
+			expect(elf.stance).toEqual([1, 1, 1, 1]);
+		}, 52);
+
+		setTimeout(() => {		//both hands down -> 0, 0
+			expect(elf.stance).toEqual([0, 0, 1, 1]);
+			done();
+		}, 60);
+	});
+
+	it("спессартин: вертушка: последовательно левая нога выставляется, левая рука поднимается, правая рука поднимается, правая ногда выставляется", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 1, 1],
+		};
+
+		spessartin(elf);
+
+		setTimeout(() => {		//left leg -> 0
+			expect(elf.stance).toEqual([0, 0, 0, 1]);
+		}, 22);
+
+		setTimeout(() => {		//left hand -> 1
+			expect(elf.stance).toEqual([1, 0, 0, 1]);
+		}, 34);
+
+		setTimeout(() => {		//right hand -> 1
+			expect(elf.stance).toEqual([1, 1, 0, 1]);
+		}, 46);
+
+		setTimeout(() => {		//left leg -> 0
+			expect(elf.stance).toEqual([1, 1, 0, 0]);
+			done();
+		}, 58);
+	});
+
+	it("кварц: сразу ноги собираются, затем ноги выставляются", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		};
+
+		quartz(elf);
+
+		setTimeout(() => {
+			expect(elf.stance).toEqual([0, 0, 1, 1]);
 			console.log(elf.stance);
 		}, 15);
 
@@ -230,19 +330,6 @@ describe("Проверить реакцию эльфа на камни:", functi
 			console.log(elf.stance);
 			done();
 		}, 30);
-
-		/*
-		jasmine.clock().tick(1000);
-		console.log(1);
-		expect(elf.stance).toEqual([1, 1, 1, 1]);
-		jasmine.clock().tick(2000);
-		console.log(2);
-		expect(elf.stance).toEqual([0, 0, 0, 0]);
-		jasmine.clock().tick(3000);
-		console.log(3);
-		done();
-		jasmine.clock().uninstall();
-		*/
 	});
 });
 

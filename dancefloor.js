@@ -1,9 +1,9 @@
-let gemSpeedShow = 8000;
+let gemSpeedShow = 4000;
 
 let dance = [
     // [gemSpeedShow, allGems[1]],     //Хризолит
     // [gemSpeedShow, allGems[40]],    //Андалузит
-    [gemSpeedShow, allGems[19]],    //Пироп
+    // [gemSpeedShow, allGems[19]],    //Пироп
     // [gemSpeedShow, allGems[24]],    //Цитрин
     // [gemSpeedShow, allGems[14]],    //Шпинель
     // [gemSpeedShow, allGems[2]],     //Эвклаз
@@ -18,11 +18,11 @@ let dance = [
     // [gemSpeedShow, allGems[31]],    //Верделит
     // [gemSpeedShow, allGems[39]],    //Гиацинт
     // [gemSpeedShow, allGems[19]],    //Пироп
-    // [gemSpeedShow, allGems[22]],
+    // [gemSpeedShow, allGems[22]],     //Кварц
     // [gemSpeedShow, allGems[36]],
     // [gemSpeedShow, allGems[0]],     //Алмаз
     // [gemSpeedShow, allGems[1]],     //Хризолит
-    // [gemSpeedShow, allGems[23]],
+    // [gemSpeedShow, allGems[23]],    //Аметист
     // [gemSpeedShow, allGems[2]],     //Эвклаз
     // [gemSpeedShow, allGems[3]],     //Корунд
     // [gemSpeedShow, allGems[4]],     //Рубин
@@ -74,7 +74,7 @@ let elves = [
     {
         name: allElves[1],
         head: '(o_o)',
-        danceSpeed: 3200,
+        danceSpeed: 200,
         stance: [0, 0, 0, 0],
         favouriteGems: [allGems[1], allGems[2]],        //Хризолит, Эвклаз
         dislikedGems: [allGems[0]]                  //Алмаз
