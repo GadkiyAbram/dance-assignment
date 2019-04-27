@@ -38,7 +38,7 @@ function leftHandDown(elf) {
     return new Promise((resolve) => {
         setTimeout(() => {
             elf.stance = [0, elf.stance[1], elf.stance[2], elf.stance[3]];
-            resolve(elf);
+            resolve(elf);   //появилось обещание с указанным значением
         }, elf.danceSpeed);
     });
 }
@@ -79,8 +79,8 @@ function leftHandUpLeftLegIn(elf){
 }
 
 function bothHandsDown(elf) {
-    let initialStance = elf.stance;
-    let finalStance = elf.stance;
+    let initialStance = elf.stance.slice(0);
+    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandDown(elf), rightHandDown(elf)]).then(values => {
         values.forEach((elf) => {
@@ -96,8 +96,8 @@ function bothHandsDown(elf) {
 }
 
 function bothHandsUp(elf) {
-    let initialStance = elf.stance;
-    let finalStance = elf.stance;
+    let initialStance = elf.stance.slice(0);
+    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftHandUp(elf), rightHandUp(elf)]).then(values => {
         values.forEach((elf) => {
@@ -149,8 +149,8 @@ function rightLegOut(elf){
 }
 
 function bothLegsOut(elf) {
-    let initialStance = elf.stance;
-    let finalStance = elf.stance;
+    let initialStance = elf.stance.slice(0);
+    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftLegOut(elf), rightLegOut(elf)]).then(values => {
         values.forEach((elf) => {
@@ -166,8 +166,8 @@ function bothLegsOut(elf) {
 }
 
 function bothLegsIn(elf) {
-    let initialStance = elf.stance;
-    let finalStance = elf.stance;
+    let initialStance = elf.stance.slice(0);
+    let finalStance = elf.stance.slice(0);
 
     return Promise.all([leftLegIn(elf), rightLegIn(elf)]).then(values => {
         values.forEach((elf) => {
@@ -183,8 +183,8 @@ function bothLegsIn(elf) {
 }
 
 function rightHandDownLeftLegOutLeftHandUp(elf){
-    let initialStance = elf.stance;
-    let finalStance = elf.stance;
+    let initialStance = elf.stance.slice(0);
+    let finalStance = elf.stance.slice(0);
 
     return Promise.all([rightHandDown(elf), leftLegOut(elf), leftHandUp(elf)]).then(values => {
         values.forEach((elf) => {
@@ -274,41 +274,43 @@ function rodolit(elf) {
 
 function pirop(elf) {
 
-    let initialStance = elf.stance;
-    let finalStance = elf.stance;
-    let finalfinalStance = elf.stance;
+    let initialStance = elf.stance.slice(0);         //0 0 0 0
+    let finalStance = elf.stance.slice(0);           //0 0 0 0
+    let superfinalStance = elf.stance.slice(0);      //0 0 0 0
 
     return new Promise((resolve => {
-        setTimeout(() => {
-            return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
-                .then((data) => {
-                    data.forEach((elf) => {
-                        for (let i = 0; i < elf.stance.length; i++){
-                            if (elf.stance[i] != initialStance[i]){
-                                finalStance[i] = elf.stance[i];
-                            }
+        return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
+            .then((data) => {
+                data.forEach((elf) => {
+                    for (let i = 0; i < elf.stance.length; i++){
+                        if (elf.stance[i] != initialStance[i]){
+                            finalStance[i] = elf.stance[i];
                         }
-                        elf.stance = finalStance;
-                        console.log("finalStance: " + finalStance);
-                    });
-                }).then(() => {
-                    return Promise.all([bothLegsOut(elf), bothHandsDown(elf)])
-                        .then((data) => {
-                            data.forEach((elf) => {
-                                for (let i = 0; i < elf.stance.length; i++){
-                                    if (elf.stance[i] != finalStance[i]){
-                                        finalfinalStance[i] = elf.stance[i];
-                                    }
-                                }
-                                elf.stance = finalfinalStance;
-                                console.log("finalfinalStance: " + finalfinalStance);
-                                resolve(elf);
-                                // return elf;
-                            });
-                        })
+                    }
                 });
-            // resolve(elf);
-        }, elf.danceSpeed);
+                elf.stance = finalStance;
+                finalStance = elf.stance.slice(0);
+                console.log("finalStance: " + finalStance);
+            }).then(() => {
+
+                return Promise.all([bothLegsOut(elf), bothHandsDown(elf)])
+                    .then((data) => {
+                        data.forEach((elf) => {
+                            for (let i = 0; i < elf.stance.length; i++){
+                                if (elf.stance[i] != finalStance[i]){
+                                    superfinalStance[i] = elf.stance[i];
+                                }
+                            }
+                        });
+                        elf.stance = superfinalStance;
+                        console.log("superfinalStance: " + superfinalStance);
+                        resolve(elf);
+                    })
+            });
+        // setTimeout(() => {
+        //
+        //     // resolve(elf);
+        // }, elf.danceSpeed);
     }));
 }
 
@@ -338,6 +340,11 @@ function pirop(elf) {
 //     }));
 // }
 
+/*
+последовательно с параллельными действиями - promise.all
+последовательно - просто с then;
+*/
+
 function spessartin(elf) {
     elf.stance = [0, 0, 1, 1];
     return new Promise((resolve => {
@@ -362,6 +369,8 @@ function startPosition(elf) {
         }, elf.danceSpeed);
     }));
 }
+
+//Promise.all - комбинация параллельных действий
 
 function endPosition(elf) {
     elf.stance = [1, 1, elf.stance[2], elf.stance[3]];

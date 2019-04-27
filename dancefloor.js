@@ -1,37 +1,37 @@
-let gemSpeedShow = 2000;
+let gemSpeedShow = 8000;
 
 let dance = [
-    [gemSpeedShow, allGems[1]],     //Хризолит
-    [gemSpeedShow, allGems[40]],    //Андалузит
+    // [gemSpeedShow, allGems[1]],     //Хризолит
+    // [gemSpeedShow, allGems[40]],    //Андалузит
     [gemSpeedShow, allGems[19]],    //Пироп
-    [gemSpeedShow, allGems[24]],    //Цитрин
-    [gemSpeedShow, allGems[14]],    //Шпинель
-    [gemSpeedShow, allGems[2]],     //Эвклаз
-    [gemSpeedShow, allGems[18]],    //Спессартин
-    [gemSpeedShow, allGems[37]],    //Танзанит
-    [gemSpeedShow, allGems[20]],    //Родолит
-    [gemSpeedShow, allGems[21]],    //Альмандин
-    [gemSpeedShow, allGems[6]],     //Тааффеит
-    [gemSpeedShow, allGems[5]],     //Сапфир
-    [gemSpeedShow, allGems[38]],    //Циркон
-    [gemSpeedShow, allGems[18]],    //Спессартин
-    [gemSpeedShow, allGems[31]],    //Верделит
-    [gemSpeedShow, allGems[39]],    //Гиацинт
-    [gemSpeedShow, allGems[19]],    //Пироп
-    [gemSpeedShow, allGems[22]],
-    [gemSpeedShow, allGems[36]],
-    [gemSpeedShow, allGems[0]],     //Алмаз
-    [gemSpeedShow, allGems[1]],     //Хризолит
-    [gemSpeedShow, allGems[23]],
-    [gemSpeedShow, allGems[2]],     //Эвклаз
-    [gemSpeedShow, allGems[3]],     //Корунд
-    [gemSpeedShow, allGems[4]],     //Рубин
-    [gemSpeedShow, allGems[0]],     //Алмаз
-    [gemSpeedShow, allGems[1]],     //Хризолит
-    [gemSpeedShow, allGems[2]],     //Эвклаз
-    [gemSpeedShow, allGems[3]],     //Корунд
-    [gemSpeedShow, allGems[4]],     //Рубин
-    [gemSpeedShow, allGems[39]],    //Гиацинт
+    // [gemSpeedShow, allGems[24]],    //Цитрин
+    // [gemSpeedShow, allGems[14]],    //Шпинель
+    // [gemSpeedShow, allGems[2]],     //Эвклаз
+    // [gemSpeedShow, allGems[18]],    //Спессартин
+    // [gemSpeedShow, allGems[37]],    //Танзанит
+    // [gemSpeedShow, allGems[20]],    //Родолит
+    // [gemSpeedShow, allGems[21]],    //Альмандин
+    // [gemSpeedShow, allGems[6]],     //Тааффеит
+    // [gemSpeedShow, allGems[5]],     //Сапфир
+    // [gemSpeedShow, allGems[38]],    //Циркон
+    // [gemSpeedShow, allGems[18]],    //Спессартин
+    // [gemSpeedShow, allGems[31]],    //Верделит
+    // [gemSpeedShow, allGems[39]],    //Гиацинт
+    // [gemSpeedShow, allGems[19]],    //Пироп
+    // [gemSpeedShow, allGems[22]],
+    // [gemSpeedShow, allGems[36]],
+    // [gemSpeedShow, allGems[0]],     //Алмаз
+    // [gemSpeedShow, allGems[1]],     //Хризолит
+    // [gemSpeedShow, allGems[23]],
+    // [gemSpeedShow, allGems[2]],     //Эвклаз
+    // [gemSpeedShow, allGems[3]],     //Корунд
+    // [gemSpeedShow, allGems[4]],     //Рубин
+    // [gemSpeedShow, allGems[0]],     //Алмаз
+    // [gemSpeedShow, allGems[1]],     //Хризолит
+    // [gemSpeedShow, allGems[2]],     //Эвклаз
+    // [gemSpeedShow, allGems[3]],     //Корунд
+    // [gemSpeedShow, allGems[4]],     //Рубин
+    // [gemSpeedShow, allGems[39]],    //Гиацинт
 ];
 
 // let dance = [
@@ -63,46 +63,46 @@ let dance = [
 
 // Это ваша танцевальная группа
 let elves = [
-    {
-        name: allElves[0],
-        head: '(·_·)',
-        danceSpeed: 200,
-        stance: [0, 0, 1, 1],
-        favouriteGems: [allGems[0]],        //Алмаз
-        dislikedGems: [allGems[1]]          //Хризолит
-    },
+    // {
+    //     name: allElves[0],
+    //     head: '(·_·)',
+    //     danceSpeed: 200,
+    //     stance: [0, 0, 1, 1],
+    //     favouriteGems: [allGems[0]],        //Алмаз
+    //     dislikedGems: [allGems[1]]          //Хризолит
+    // },
     {
         name: allElves[1],
         head: '(o_o)',
-        danceSpeed: 200,
+        danceSpeed: 3200,
         stance: [0, 0, 0, 0],
         favouriteGems: [allGems[1], allGems[2]],        //Хризолит, Эвклаз
         dislikedGems: [allGems[0]]                  //Алмаз
     },
-    {
-        name: allElves[2],
-        head: '(o_O)',
-        danceSpeed: 200,
-        stance: [0, 0, 0, 0],
-        favouriteGems: [allGems[1]],        //Хризолит
-        dislikedGems: [allGems[0]]          //Алмаз
-    },
-    {
-        name: allElves[3],
-        head: '(-_-)',
-        danceSpeed: 200,
-        stance: [0, 0, 0, 0],
-        favouriteGems: [allGems[1]],        //Хризолит
-        dislikedGems: [allGems[0]]          //Алмаз
-    },
-    {
-        name: allElves[4],
-        head: '(=_=)',
-        danceSpeed: 200,
-        stance: [0, 0, 0, 0],
-        favouriteGems: [allGems[1]],        //Хризолит
-        dislikedGems: [allGems[0]]          //Алмаз
-    }
+    // {
+    //     name: allElves[2],
+    //     head: '(o_O)',
+    //     danceSpeed: 200,
+    //     stance: [0, 0, 0, 0],
+    //     favouriteGems: [allGems[1]],        //Хризолит
+    //     dislikedGems: [allGems[0]]          //Алмаз
+    // },
+    // {
+    //     name: allElves[3],
+    //     head: '(-_-)',
+    //     danceSpeed: 200,
+    //     stance: [0, 0, 0, 0],
+    //     favouriteGems: [allGems[1]],        //Хризолит
+    //     dislikedGems: [allGems[0]]          //Алмаз
+    // },
+    // {
+    //     name: allElves[4],
+    //     head: '(=_=)',
+    //     danceSpeed: 200,
+    //     stance: [0, 0, 0, 0],
+    //     favouriteGems: [allGems[1]],        //Хризолит
+    //     dislikedGems: [allGems[0]]          //Алмаз
+    // }
     ];
 
 // Эта функция должна вернуть список эльфов для отрисовки

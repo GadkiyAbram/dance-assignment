@@ -1,3 +1,5 @@
+// jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 describe("Научить эльфа делать простые движения:", function() {
 	it("поднять левую руку", function(done) {
 		let elf = {
@@ -209,23 +211,38 @@ describe("Проверить реакцию эльфа на камни:", functi
 
 	it("пироп: сразу ноги собираются, руки поднимаются, затем ноги выставляются, руки опускаются", function (done) {
 
-		jasmine.clock().install();
-
-		setTimeout(function() {
-			pirop(elf);
-		}, 10);
+		// jasmine.clock().install();
 
 		let elf = {
 			danceSpeed: 10,
 			stance: [0, 0, 0, 0],
-		}
+		};
 
-		jasmine.clock().tick(30);
+		pirop(elf);
+
+		setTimeout(() => {
+			expect(elf.stance).toEqual([1, 1, 1, 1]);
+			console.log(elf.stance);
+		}, 15);
+
+		setTimeout(() => {
+			expect(elf.stance).toEqual([0, 0, 0, 0]);
+			console.log(elf.stance);
+			done();
+		}, 30);
+
+		/*
+		jasmine.clock().tick(1000);
+		console.log(1);
 		expect(elf.stance).toEqual([1, 1, 1, 1]);
-		jasmine.clock().tick(160);
+		jasmine.clock().tick(2000);
+		console.log(2);
 		expect(elf.stance).toEqual([0, 0, 0, 0]);
+		jasmine.clock().tick(3000);
+		console.log(3);
 		done();
 		jasmine.clock().uninstall();
+		*/
 	});
 });
 
