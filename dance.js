@@ -165,7 +165,7 @@ function ametist(elf) {     //fine
     }));
 }
 
-function quartz(elf) {
+function quartz(elf) {      //fine
     let initialStance = elf.stance.slice(0);
 
     return new Promise((resolve => {
@@ -207,9 +207,7 @@ function rodolit(elf) {
 
 function pirop(elf) {       //fine
 
-    let initialStance = elf.stance.slice(0);         //0 0 0 0
-    let finalStance = elf.stance.slice(0);           //0 0 0 0
-    let superfinalStance = elf.stance.slice(0);      //0 0 0 0
+    let initialStance = elf.stance.slice(0);
 
     return new Promise((resolve => {
         return Promise.all([bothLegsIn(elf), bothHandsUp(elf)])
@@ -249,22 +247,20 @@ function spessartin(elf) {      //fine
 function startPosition(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
-            elf.stance = [0, 0, 0, 0];
+            elf.stance = [0, 0, 1, 1];
             resolve(elf);
         }, elf.danceSpeed);
     }));
 }
 
-//Promise.all - комбинация параллельных действий
-
 function endPosition(elf) {
-    elf.stance = [1, 1, elf.stance[2], elf.stance[3]];
+    let initialStance = elf.stance;
     return new Promise((resolve => {
-        setTimeout(() => {
-            bothHandsDown(elf);
-            bothLegsOut(elf);
-            resolve(elf);
-        }, elf.danceSpeed);
+        return Promise.all([bothHandsDown(elf), bothLegsOut(elf)])
+            .then((values) => {
+               elf.stance = arraysCompare(initialStance, values, elf.stance);
+               resolve(elf);
+            });
     }));
 }
 
@@ -282,7 +278,7 @@ function cirkon(elf) {
     return new Promise((resolve => {
         setTimeout(() => {
             resolve(elf);
-        }, dance[0]);
+        }, elf.danceSpeed);
     }));
 }
 

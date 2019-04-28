@@ -16,7 +16,7 @@ describe("Научить эльфа делать простые движения
 	it("опустить левую руку", function (done) {
 		let elf = {
 			danceSpeed: 10,
-			stance: [0, 0, 0, 0],
+			stance: [0, 1, 0, 0],
 		}
 
 		leftHandDown(elf).then((elf) => {
@@ -64,11 +64,11 @@ describe("Научить эльфа делать простые движения
 	it("вогнуть левую ногу", function (done) {
 		let elf = {
 			danceSpeed: 10,
-			stance: [0, 0, 0, 0],
+			stance: [0, 0, 1, 0],
 		}
 
-		leftLegIn(elf).then((elf) => {
-			expect(elf.stance[2]).toEqual(1);
+		leftLegOut(elf).then((elf) => {
+			expect(elf.stance[2]).toEqual(0);
 			done();
 		})
 	})
@@ -332,28 +332,122 @@ describe("Проверить реакцию эльфа на камни:", functi
 		}, 30);
 	});
 
-	it("Альмандин: одновременно левая рука поднимается и левая нога выставляется", function (done) {
+	it("альмандин: одновременно левая рука поднимается и левая нога выставляется", function (done) {
 
 		let elf = {
 			danceSpeed: 10,
-			stance: [0, 0, 1, 1],		//[1, 0, 0, 1]
+			stance: [0, 0, 1, 0],		//[1, 0, 0, 1]
 		};
 
 		almandin(elf).then((elf) => {
-			expect(elf.stance).toEqual([1, 0, 0, 1]);
+			expect(elf.stance).toEqual([1, 0, 0, 0]);
 			done();
 		});
+	});
 
+	it("андалузит: все танцоры должны принять изначальную танцевальную позицию", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [0, 0, 0, 0],
+		};
+
+		startPosition(elf).then((elf) => {
+			expect(elf.stance).toEqual([0, 0, 1, 1]);
+			done();
+		});
+	});
+
+	it("гиацинт: все танцоры должны принять конечную танцевальную позицию", function (done) {
+
+		let elf = {
+			danceSpeed: 10,
+			stance: [1, 1, 1, 1],
+		};
+
+		endPosition(elf).then((elf) => {
+			expect(elf.stance).toEqual([0, 0, 0, 0]);
+			done();
+		});
+	});
+
+	it("циркон: все танцоры делают паузу равную скорости выполнения танцевальных фигур", function (done) {
+
+		let elf = {
+			danceSpeed: 100,			//can be reduced
+			stance: [1, 1, 1, 1],
+		};
+
+		cirkon(elf).then((elf) => {
+			expect(elf.stance).toEqual([1, 1, 1, 1]);
+			done();
+		});
+	});
+
+	it("танзанит: все танцоры увеличивают скорость выполнения танцевальных фигур вдвое", function (done) {
+
+		let elf = {
+			danceSpeed: 20,
+			expectedSpeed: 10,
+		};
+
+		tanzanit(elf).then((elf) => {
+			expect(elf.danceSpeed).toEqual(elf.expectedSpeed);
+			done();
+		});
+	});
+
+	it("топаз: все танцоры уменьшают скорость выполнения танцевальных фигур вдвое", function (done) {
+
+		let elf = {
+			danceSpeed: 35,
+			expectedSpeed: 70,
+		};
+
+		topaz(elf).then((elf) => {
+			expect(elf.danceSpeed).toEqual(elf.expectedSpeed);
+			done();
+		});
 	});
 });
 
 describe("Протестировать функцию arraysCompare:", function() {
-	it("скомбинировать массивы", function() {
+	it("скомбинировать 2x массива", function() {
 
 		let array = [0, 0, 0, 0];
 		let arrays = [[0, 0, 1, 0], [0, 0, 0, 1]];
 		let arr = [0, 0, 0, 0];
 		let expectedArray = [0, 0, 1, 1];
+
+		expect(arraysCompare(array, arrays, arr)).toEqual(expectedArray);
+	});
+
+	it("скомбинировать 3x массива", function() {
+
+		let array = [0, 0, 0, 0];
+		let arrays = [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+		let arr = [0, 0, 0, 0];
+		let expectedArray = [0, 1, 1, 1];
+
+		expect(arraysCompare(array, arrays, arr)).toEqual(expectedArray);
+	});
+
+	it("скомбинировать 4x массива", function() {
+
+		let array = [0, 0, 0, 0];
+		let arrays = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+		let arr = [0, 0, 0, 0];
+		let expectedArray = [1, 1, 1, 1];
+
+		expect(arraysCompare(array, arrays, arr)).toEqual(expectedArray);
+	});
+
+	it("скомбинировать 5x массивов", function() {
+
+		let array = [1, 1, 1, 1];
+		let arrays = [[0, 1, 1, 1], [1, 0, 1, 1], [1, 1, 0, 1], [1, 1, 1, 0], [1, 1, 1, 1]];
+		let arr = [0, 0, 0, 0];
+		let expectedArray = [0, 0, 0, 0];
 
 		expect(arraysCompare(array, arrays, arr)).toEqual(expectedArray);
 	});
